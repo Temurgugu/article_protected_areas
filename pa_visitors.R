@@ -35,7 +35,7 @@ tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                                 axis.text.y=element_text(angle = 0, hjust=0.5, size=10, colour="black"),
                                 plot.caption = element_text(size=10, colour="black", hjust=0),
                                 plot.title=element_text(colour="black", size=12))+
-                          labs(title = "Number of visitors in protected areas (Georgia)\nდაცულ ტერიტორიებზე ვიზიტორთა რაოდენობა (საქართველო)",
+                          labs(title = "Number of visitors in protected areas (Georgia)\nდაცული ტერიტორიების ვიზიტორთა სტატისტიკა (საქართველო)",
                                subtitle ="",
                                caption = "Source: Agency of Protected Areas \nწყარო: დაცული ტერიტორიების სააგენტო",
                                x = "Year\nწელი",
