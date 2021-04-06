@@ -1,9 +1,8 @@
 rm(list=ls())    # clear the workspace
 
-
 #=== Temur Gugushvii === 
-# avout author https://temurgugushvili.ge/
-# data source https://apa.gov.ge/ge/statistika/vizitorta-statistika
+# Author https://temurgugushvili.ge/
+# Data source https://apa.gov.ge/ge/statistika/vizitorta-statistika
 
 #libraries
 
