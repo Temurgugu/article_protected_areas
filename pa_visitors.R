@@ -26,7 +26,7 @@ tg_pa_visitors <- tg_pa_visitors %>%
 
 tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                           geom_col(fill = "#408000") +
-                          geom_label(label = tg_pa_visitors$visits, size = 3)+
+                          geom_text(label = scales::comma(tg_pa_visitors$visits), size = 3.2, vjust = -0.4, nudge_y = 0.5)+
                           theme_minimal(base_family="Sylfaen")+
                           theme(axis.title.x = element_text(colour="black", size=10, hjust=0.5),
                                 axis.title.y = element_text(colour="black", size=10, hjust=0.5),
