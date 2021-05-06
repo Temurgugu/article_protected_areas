@@ -25,16 +25,17 @@ tg_pa_visitors <- tg_pa_visitors %>%
 #Build the visualization 
 
 tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
-                          geom_col(fill = "#408000") +
-                          geom_text(label = scales::comma(tg_pa_visitors$visits), size = 3.2, vjust = -0.4, nudge_y = 0.5)+
+                          geom_col(fill = "#739900") +
+                          geom_text(label = scales::comma(tg_pa_visitors$visits), size = 1.3, vjust = -0.4, nudge_y = 0.5)+
                           theme_minimal(base_family="Sylfaen")+
-                          theme(axis.title.x = element_text(colour="black", size=10, hjust=0.5),
-                                axis.title.y = element_text(colour="black", size=10, hjust=0.5),
-                                axis.text.x=element_text(angle = 90, hjust=0.5, size=10, colour="black"),
-                                axis.text.y=element_text(angle = 0, hjust=0.5, size=10, colour="black"),
-                                plot.caption = element_text(size=10, colour="black", hjust=0),
-                                plot.title=element_text(colour="black", size=12))+
-                          labs(title = "Number of visitors in protected areas (Georgia)\nდაცული ტერიტორიების ვიზიტორთა სტატისტიკა (საქართველო)",
+                          theme(axis.title.x = element_text(colour="black", size=4, hjust=0.5),
+                                axis.title.y = element_text(colour="black", size=4, hjust=0.5),
+                                axis.text.x=element_text(angle = 90, hjust=0.5, size=4, colour="black"),
+                                axis.text.y=element_text(angle = 0, hjust=0.5, size=4, colour="black"),
+                                plot.caption = element_text(size=4, colour="black", hjust=0),
+                                plot.title=element_text(colour="black", size=5),
+                                panel.grid.major = element_line(size = 0.05))+
+                          labs(title = "Number of visits in protected areas (Georgia)\nდაცული ტერიტორიების ვიზიტების სტატისტიკა (საქართველო)",
                                subtitle ="",
                                caption = "Source: Agency of Protected Areas \nწყარო: დაცული ტერიტორიების სააგენტო",
                                x = "Year\nწელი",
@@ -43,9 +44,10 @@ tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                           scale_x_continuous(breaks=seq(2007, 2020, 1))
 
 #Save the ggplot
-ggsave("visualization/tg_pa_visitors_diagram.png", 
+ggsave("visualization/tg_pa_visitors_diagram.JPEG", 
        plot = tg_pa_visitors_diagram,
-       width = 10,
-       height = 6) 
+       units = "mm",
+       width = 100,
+       height = 75) 
                  
 
