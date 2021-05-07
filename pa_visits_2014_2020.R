@@ -25,7 +25,7 @@ tg_pa_visits_2014 <- readr::read_csv("data/gpa_2014_2020.csv",
 
 tg_pa_visits_2014 <- tg_pa_visits_2014 %>%
                      dplyr::mutate(Date = as.Date(paste(Year_Month,"-01",sep="")))  %>%
-                     dplyr::mutate(Year_Month = format_ISO8601(Date, precision = "ym"))  %>%
+                     dplyr::mutate(Year_Month = lubridate::format_ISO8601(Date, precision = "ym"))  %>%
                      dplyr::mutate(year = lubridate::year(Date)) %>%
                      dplyr::mutate(month = lubridate::month(Date, label = TRUE))
   
@@ -34,11 +34,16 @@ tg_pa_visits_2014$Year_Month <- zoo::as.Date(zoo::as.yearmon(tg_pa_visits_2014$Y
 tg_pa_visits_2014_visitors <- tg_pa_visits_2014  %>% 
                               group_by(year, month, visitor_type_en)  %>% 
                               summarise(visits_group = sum(visits))
+
+tg_pa_visitors_visitor_type_en <- tg_pa_visits_2014  %>% 
+                                  dplyr::group_by(year, visitor_type_en)  %>% 
+                                  dplyr::summarise(visits_group = sum(visits))
                               
   
 tg_pa_visits_2014_domestic <- tg_pa_visits_2014 %>% filter(visitor_type_en == "Domestic")
 
 tg_pa_visits_2014_International <- tg_pa_visits_2014 %>% filter(visitor_type_en == "International")
+
 
 
 pa_visitors  <- ggplot2::ggplot(tg_pa_visits_2014_visitors, aes(y= month, x= year, fill =visits_group))+
@@ -120,4 +125,31 @@ ggsave("visualization/international_domestic_pa_visitors.JPEG",
        plot = international_domestic_pa_visitors,
        width = 510,
        height = 320,
+       units = "mm")
+
+
+
+tg_pa_visitors_type_en <- ggplot2::ggplot(tg_pa_visitors_visitor_type_en, aes(year, visits_group)) +
+                          geom_col(aes(fill = visitor_type_en), position = "dodge") +
+                          theme_minimal(base_family="Sylfaen")+
+                          theme(axis.title.x = element_text(colour="black", size=9, hjust=0.5),
+                                axis.title.y = element_text(colour="black", size=9, hjust=0.5),
+                                axis.text.x=element_text(angle = 90, hjust=0.5, size=9, colour="black"),
+                                axis.text.y=element_text(angle = 0, hjust=0.5, size=9, colour="black"),
+                                plot.caption = element_text(size=9, colour="black", hjust=0),
+                                plot.title=element_text(colour="black", size=13),
+                                panel.grid.major = element_line(size = 0.05))+
+                          labs(title = "Number of visits in protected areas (Georgia)",
+                               subtitle ="",
+                               caption = "Source: Agency of Protected Areas",
+                               x = "Year",
+                               y = "Visits")+
+                          scale_fill_manual(name = "Type of Visit",
+                                            values = c("#669933", "#FFCC66"))+
+                          scale_y_continuous(breaks=seq(0, 6000000, 100000), labels = scales::comma)+
+                          scale_x_continuous(breaks=seq(2007, 2020, 1))
+ggsave("visualization/tg_pa_visitors_type_en.JPEG", 
+       plot = tg_pa_visitors_type_en,
+       width = 290,
+       height = 220,
        units = "mm")
