@@ -11,7 +11,7 @@ library(tidyverse)
 
 # import data
 
-tg_pa_visitors <- readr::read_csv("data/pa_visitors.csv",
+tg_pa_visitors <- readr::read_csv("data/article_figure1_data.csv",
                                    col_types = cols(year = "n",
                                                     visits = "n",
                                                     pa = "c"))
@@ -24,7 +24,7 @@ tg_pa_visitors <- tg_pa_visitors %>%
 
 #Build the visualization 
 
-tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
+article_figure1 <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                           geom_col(fill = "#739900") +
                           geom_text(label = scales::comma(tg_pa_visitors$visits), size = 1.3, vjust = -0.4, nudge_y = 0.5)+
                           theme_minimal(base_family="Sylfaen")+
@@ -34,7 +34,8 @@ tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                                 axis.text.y=element_text(angle = 0, hjust=0.5, size=4, colour="black"),
                                 plot.caption = element_text(size=4, colour="black", hjust=0),
                                 plot.title=element_text(colour="black", size=5),
-                                panel.grid.major = element_line(size = 0.05))+
+                                panel.grid.major = element_line(size = 0.05),
+                                axis.line = element_line(size = 0.2, colour = "black"),)+
                           labs(title = "Number of visits in protected areas (Georgia)\nდაცული ტერიტორიების ვიზიტების სტატისტიკა (საქართველო)",
                                subtitle ="",
                                caption = "Source: Agency of Protected Areas \nწყარო: დაცული ტერიტორიების სააგენტო",
@@ -44,10 +45,11 @@ tg_pa_visitors_diagram <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                           scale_x_continuous(breaks=seq(2007, 2020, 1))
 
 #Save the ggplot
-ggsave("visualization/tg_pa_visitors_diagram.JPEG", 
-       plot = tg_pa_visitors_diagram,
+ggsave("visualization/article_figure1.JPG", 
+       plot = article_figure1,
        units = "mm",
        width = 100,
+       dpi = 300,
        height = 75) 
                  
 
