@@ -38,8 +38,16 @@ tg_pa_visits_2014_visitors <- tg_pa_visits_2014  %>%
 tg_pa_visitors_visitor_type_en <- tg_pa_visits_2014  %>% 
                                   dplyr::group_by(year, visitor_type_en)  %>% 
                                   dplyr::summarise(visits_group = sum(visits))
+                                  
                               
   
+tg_pa_visitors_visitor_type_en_Kazbegi <- tg_pa_visits_2014  %>% 
+  dplyr::filter(pa_en == "Kazbegi National Park")%>%
+  dplyr::group_by(year, visitor_type_en)  %>% 
+  dplyr::summarise(visits_group = sum(visits))
+
+
+
 tg_pa_visits_2014_domestic <- tg_pa_visits_2014 %>% filter(visitor_type_en == "Domestic")
 
 tg_pa_visits_2014_International <- tg_pa_visits_2014 %>% filter(visitor_type_en == "International")
@@ -145,11 +153,39 @@ tg_pa_visitors_type_en <- ggplot2::ggplot(tg_pa_visitors_visitor_type_en, aes(ye
                                x = "Year",
                                y = "Visits")+
                           scale_fill_manual(name = "Type of Visit",
-                                            values = c("#669933", "#FFCC66"))+
+                                            values = c("#0057b7", "#ffcc00"))+
                           scale_y_continuous(breaks=seq(0, 6000000, 100000), labels = scales::comma)+
                           scale_x_continuous(breaks=seq(2007, 2020, 1))
 ggsave("visualization/tg_pa_visitors_type_en.JPEG", 
        plot = tg_pa_visitors_type_en,
+       width = 290,
+       height = 220,
+       units = "mm")
+
+
+
+
+tg_pa_visitors_type_en_Kazbegi <- ggplot2::ggplot(tg_pa_visitors_visitor_type_en_Kazbegi, aes(year, visits_group)) +
+  geom_col(aes(fill = visitor_type_en), position = "dodge") +
+  theme_minimal(base_family="Sylfaen")+
+  theme(axis.title.x = element_text(colour="black", size=9, hjust=0.5),
+        axis.title.y = element_text(colour="black", size=9, hjust=0.5),
+        axis.text.x=element_text(angle = 90, hjust=0.5, size=9, colour="black"),
+        axis.text.y=element_text(angle = 0, hjust=0.5, size=9, colour="black"),
+        plot.caption = element_text(size=9, colour="black", hjust=0),
+        plot.title=element_text(colour="black", size=13),
+        panel.grid.major = element_line(size = 0.05))+
+  labs(title = "Number of visits in protected areas (Georgia):Kazbegi National Park",
+       subtitle ="",
+       caption = "Source: Agency of Protected Areas",
+       x = "Year",
+       y = "Visits")+
+  scale_fill_manual(name = "Type of Visit",
+                    values = c("#0057b7", "#ffcc00"))+
+  #scale_y_continuous(breaks=seq(0, 6000000, 100000), labels = scales::comma)+
+  scale_x_continuous(breaks=seq(2007, 2020, 1))
+ggsave("visualization/tg_pa_visitors_type_en_Kazbegi.JPEG", 
+       plot = tg_pa_visitors_type_en_Kazbegi,
        width = 290,
        height = 220,
        units = "mm")
