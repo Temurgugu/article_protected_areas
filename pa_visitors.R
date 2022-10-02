@@ -35,14 +35,14 @@ article_figure1 <- ggplot2::ggplot(tg_pa_visitors, aes(year, visits)) +
                                 plot.caption = element_text(size=4, colour="black", hjust=0),
                                 plot.title=element_text(colour="black", size=5),
                                 panel.grid.major = element_line(size = 0.05),
-                                axis.line = element_line(size = 0.2, colour = "black"),)+
+                                axis.line = element_line(size = 0.2, colour = "black"))+
                           labs(title = "Number of visits in protected areas (Georgia)\nდაცული ტერიტორიების ვიზიტების სტატისტიკა (საქართველო)",
                                subtitle ="",
                                caption = "Source: Agency of Protected Areas \nწყარო: დაცული ტერიტორიების სააგენტო",
                                x = "Year\nწელი",
                                y = "Visits\nვიზიტები")+
                           scale_y_continuous(breaks=seq(0, 120000000, 200000), labels = scales::comma)+
-                          scale_x_continuous(breaks=seq(2007, 2020, 1))
+                          scale_x_continuous(breaks=seq(2007, 2021, 1))
 
 #Save the ggplot
 ggsave("visualization/article_figure1.JPG", 
